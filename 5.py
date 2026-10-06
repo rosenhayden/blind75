@@ -12,7 +12,8 @@ need to handle even and odd len substring cases.
 
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        solution = ""
+        #solution = ""
+        bestL,bestR = 0,0
         solutionLength = 0
         for i in range(len(s)):
             left,right = i,i
@@ -20,8 +21,10 @@ class Solution:
             while left >= 0 and right < len(s) and s[left] == s[right]:
                 candidateSolutionLength = right - left + 1
                 if candidateSolutionLength > solutionLength:
-                    solution = s[left : right+1]
-                    solutionLength += 1
+                    #solution = s[left : right+1]
+                    bestL = left
+                    bestR = right
+                    solutionLength = candidateSolutionLength
                 #expand out
                 left -= 1
                 right += 1
@@ -30,9 +33,11 @@ class Solution:
             while left >= 0 and right < len(s) and s[left] == s[right]:
                 candidateSolutionLength = right - left + 1
                 if candidateSolutionLength > solutionLength:
-                    solution = s[left:right+1]
+                    #solution = s[left:right+1]
+                    bestL = left
+                    bestR = right
                     solutionLength = candidateSolutionLength
                 #expand out
                 left -= 1
                 right += 1
-        return solution
+        return s[bestL : bestR +1]
